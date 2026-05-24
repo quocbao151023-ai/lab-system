@@ -623,7 +623,7 @@ body {
 }
 
 .attendance-stat-card {
-  min-height: 72px !important;
+  min-height: 70px !important;
   padding: 10px 14px !important;
   border-radius: 14px !important;
   gap: 12px !important;
