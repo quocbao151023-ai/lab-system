@@ -215,21 +215,6 @@ table {
     min-height: 70px !important;
 }
 
-/* Login page */
-.login-page,
-.login-wrapper,
-.login-container {
-    width: 100%;
-    min-height: 100vh;
-    overflow: hidden;
-}
-
-.login-card,
-.login-box {
-    transform: scale(0.92);
-    transform-origin: center;
-}
-
 /* Màn hình nhỏ hơn laptop */
 @media (max-width: 1366px) {
     html,
