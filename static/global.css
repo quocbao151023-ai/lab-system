@@ -1,0 +1,280 @@
+/* =====================================================
+   GLOBAL SCALE FIX - FIT SCREEN AT 100% ZOOM
+   Dùng chung cho toàn bộ hệ thống quản lý phòng lab
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-size: 14px;
+}
+
+body {
+    background: #f4f7fb;
+}
+
+/* Giảm kích thước chữ tổng thể */
+h1 {
+    font-size: 30px !important;
+    line-height: 1.2 !important;
+}
+
+h2 {
+    font-size: 22px !important;
+}
+
+h3 {
+    font-size: 18px !important;
+}
+
+p,
+span,
+a,
+button,
+input,
+select,
+textarea,
+td,
+th,
+label {
+    font-size: 14px;
+}
+
+/* Layout tổng */
+.app,
+.layout,
+.wrapper,
+.page-wrapper {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* Sidebar dùng chung */
+.sidebar,
+.side-bar,
+.left-sidebar {
+    width: 220px !important;
+    min-width: 220px !important;
+    max-width: 220px !important;
+}
+
+/* Logo trong sidebar */
+.sidebar .logo,
+.sidebar-logo,
+.logo-box {
+    padding: 18px 20px !important;
+}
+
+.sidebar img,
+.sidebar-logo img,
+.logo-box img {
+    max-width: 150px !important;
+    height: auto !important;
+}
+
+/* Nội dung chính bên phải */
+.main,
+.main-content,
+.content,
+.page-content,
+.dashboard-main {
+    width: calc(100vw - 220px) !important;
+    max-width: calc(100vw - 220px) !important;
+    overflow-x: hidden !important;
+}
+
+/* Header chung */
+.header,
+.topbar,
+.page-header {
+    min-height: 78px !important;
+    padding: 16px 28px !important;
+}
+
+.header-title,
+.page-title {
+    font-size: 30px !important;
+}
+
+/* Khối nội dung */
+.container,
+.content-wrapper,
+.dashboard-container,
+.page-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 18px 24px !important;
+    overflow-x: hidden !important;
+}
+
+/* Card / box / filter */
+.card,
+.stat-card,
+.filter-box,
+.filter-section,
+.panel,
+.box {
+    border-radius: 12px !important;
+    padding: 14px 18px !important;
+}
+
+/* Form input */
+input,
+select,
+button {
+    height: 40px !important;
+}
+
+button {
+    padding: 0 16px !important;
+}
+
+/* Bảng không bị tràn */
+table {
+    width: 100%;
+    max-width: 100%;
+    table-layout: fixed;
+}
+
+.table-wrapper,
+.sheet-wrapper,
+.data-table-wrapper {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+/* Footer */
+.footer,
+.page-footer {
+    min-height: 48px !important;
+    padding: 8px 28px !important;
+    font-size: 13px !important;
+}
+
+/* Calendar */
+.calendar-wrapper,
+.calendar-section,
+.calendar-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 14px 18px !important;
+    overflow-x: hidden !important;
+}
+
+.calendar-table {
+    width: 100% !important;
+    table-layout: fixed !important;
+}
+
+.calendar-table th {
+    height: 68px !important;
+    padding: 8px !important;
+}
+
+.calendar-table td {
+    height: 104px !important;
+    padding: 8px !important;
+}
+
+.calendar-table th:first-child,
+.calendar-table td:first-child {
+    width: 90px !important;
+}
+
+.event-card,
+.lab-event,
+.booking-event {
+    min-height: 28px !important;
+    height: auto !important;
+    padding: 6px 10px !important;
+    font-size: 13px !important;
+    border-radius: 6px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Dashboard cards */
+.stats-grid,
+.summary-grid,
+.card-grid {
+    gap: 12px !important;
+}
+
+.stat-card {
+    min-height: 70px !important;
+}
+
+/* Login page */
+.login-page,
+.login-wrapper,
+.login-container {
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.login-card,
+.login-box {
+    transform: scale(0.92);
+    transform-origin: center;
+}
+
+/* Màn hình nhỏ hơn laptop */
+@media (max-width: 1366px) {
+    html,
+    body {
+        font-size: 13px;
+    }
+
+    h1 {
+        font-size: 28px !important;
+    }
+
+    .sidebar,
+    .side-bar,
+    .left-sidebar {
+        width: 210px !important;
+        min-width: 210px !important;
+        max-width: 210px !important;
+    }
+
+    .main,
+    .main-content,
+    .content,
+    .page-content,
+    .dashboard-main {
+        width: calc(100vw - 210px) !important;
+        max-width: calc(100vw - 210px) !important;
+    }
+
+    .container,
+    .content-wrapper,
+    .dashboard-container,
+    .page-container {
+        padding: 14px 20px !important;
+    }
+
+    .calendar-table th {
+        height: 60px !important;
+    }
+
+    .calendar-table td {
+        height: 92px !important;
+    }
+
+    .footer,
+    .page-footer {
+        min-height: 44px !important;
+    }
+}
