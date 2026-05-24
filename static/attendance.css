@@ -2,28 +2,58 @@
    ATTENDANCE PAGE CSS
    Chỉ style phần Theo dõi ra/vào.
    Không ghi đè sidebar, topbar, footer của dashboard.css.
+   Mục tiêu: giao diện vừa màn hình 100%, không cần zoom 75%.
    ========================================================= */
+
+/* =========================================================
+   RESET NHẸ + CHỐNG TRÀN
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+body {
+  font-size: 14px;
+}
 
 /* =========================================================
    KHUNG CHUNG
    ========================================================= */
 
-* {
-  box-sizing: border-box;
-}
-
-body {
+.attendance-content {
+  width: 100%;
+  max-width: 100%;
+  min-height: calc(100vh - 180px);
   overflow-x: hidden;
 }
 
-.attendance-content {
+.layout-main {
   width: 100%;
-  min-height: calc(100vh - 210px);
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
 }
 
-.layout-main {
+/* Nếu file dashboard.css có main/content rộng quá thì ép lại nhẹ */
+.main-content,
+.content,
+.page-content,
+.dashboard-main {
+  min-width: 0;
   max-width: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* =========================================================
@@ -31,32 +61,34 @@ body {
    ========================================================= */
 
 .attendance-stat-grid {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-  margin-bottom: 18px;
+  gap: 12px;
+  margin-bottom: 14px;
 }
 
 .attendance-stat-card {
-  min-height: 108px;
+  min-height: 86px;
   background: #ffffff;
   border: 1px solid #dbe3ef;
-  border-radius: 16px;
-  padding: 18px 22px;
+  border-radius: 14px;
+  padding: 14px 16px;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
 }
 
 .attendance-icon {
-  width: 54px;
-  height: 54px;
-  flex: 0 0 54px;
-  border-radius: 14px;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  border-radius: 13px;
   display: grid;
   place-items: center;
-  font-size: 24px;
+  font-size: 21px;
   font-weight: 900;
   color: #ffffff;
 }
@@ -88,9 +120,9 @@ body {
 
 .attendance-stat-card p,
 .attendance-stat-title {
-  margin: 0 0 8px 0;
+  margin: 0 0 6px 0;
   color: #001f5b;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 900;
   line-height: 1.25;
 }
@@ -98,18 +130,18 @@ body {
 .attendance-stat-card h3 {
   margin: 0;
   color: #001f5b;
-  font-size: 32px;
+  font-size: 26px;
   line-height: 1;
   font-weight: 900;
   display: flex;
   align-items: baseline;
-  gap: 6px;
+  gap: 5px;
   white-space: nowrap;
 }
 
 .attendance-stat-card h3 span {
   color: #64748b;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   white-space: nowrap;
 }
@@ -124,6 +156,7 @@ body {
 
 .attendance-table-section {
   width: 100%;
+  max-width: 100%;
   background: transparent;
   border: none;
   border-radius: 0;
@@ -132,7 +165,8 @@ body {
 
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
+  overflow-x: hidden;
 }
 
 /* =========================================================
@@ -142,26 +176,29 @@ body {
 .attendance-filter-card,
 .attendance-control-left {
   width: 100%;
+  max-width: 100%;
   background: #ffffff;
   border: 1px solid #dbe3ef;
-  border-radius: 16px;
-  padding: 16px;
+  border-radius: 14px;
+  padding: 13px 14px;
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
 
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
   align-items: end;
+  overflow: hidden;
 }
 
 .attendance-filter-group {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 6px;
+  min-width: 0;
 }
 
 .attendance-filter-group label {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 900;
   color: #001f5b;
 }
@@ -169,13 +206,13 @@ body {
 .attendance-filter-group input,
 .attendance-filter-group select {
   width: 100%;
-  height: 42px;
+  height: 38px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
-  padding: 0 12px;
+  padding: 0 11px;
   background: #ffffff;
   color: #001f5b;
-  font-size: 14px;
+  font-size: 13px;
   outline: none;
 }
 
@@ -187,9 +224,6 @@ body {
 
 /* =========================================================
    SHEET / TABLE CARD
-   Logic giống Báo cáo vệ sinh:
-   - Ít dữ liệu: card fit theo nội dung.
-   - Nhiều dữ liệu: card cao hơn, bảng cuộn riêng.
    ========================================================= */
 
 .attendance-list-card {
@@ -197,8 +231,8 @@ body {
   max-width: 100%;
   background: #ffffff;
   border: 1px solid #dbe3ef;
-  border-radius: 16px;
-  padding: 18px;
+  border-radius: 14px;
+  padding: 14px;
   margin: 0;
   box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
 
@@ -206,7 +240,7 @@ body {
   flex-direction: column;
 
   height: auto;
-  max-height: 550px;
+  max-height: calc(100vh - 320px);
   overflow: hidden;
 }
 
@@ -214,15 +248,15 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 12px;
+  gap: 12px;
+  margin-bottom: 10px;
   flex-shrink: 0;
 }
 
 .attendance-list-head h3 {
   margin: 0;
   color: #0055d4;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 900;
   text-transform: uppercase;
 }
@@ -239,7 +273,8 @@ body {
   width: 100%;
   max-width: 100%;
 
-  max-height: 500px;
+  max-height: calc(100vh - 380px);
+  min-height: 260px;
   overflow-y: auto;
   overflow-x: auto;
 
@@ -249,7 +284,7 @@ body {
 
 .attendance-main-table {
   width: 100%;
-  min-width: 980px;
+  min-width: 880px;
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -261,8 +296,8 @@ body {
 
   background: #eef3f9;
   color: #001f5b;
-  padding: 13px 12px;
-  font-size: 13px;
+  padding: 11px 10px;
+  font-size: 12.5px;
   font-weight: 900;
   text-align: left;
   border-bottom: 1px solid #dbe4f0;
@@ -271,9 +306,9 @@ body {
 }
 
 .attendance-main-table tbody td {
-  padding: 13px 12px;
+  padding: 11px 10px;
   color: #001f5b;
-  font-size: 13px;
+  font-size: 12.5px;
   border-bottom: 1px solid #e5e7eb;
   background: #ffffff;
   vertical-align: middle;
@@ -294,7 +329,7 @@ body {
 
 /* Cột mã đăng ký */
 .attendance-main-table td:nth-child(3) {
-  max-width: 190px;
+  max-width: 170px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -303,19 +338,19 @@ body {
 /* Cột họ tên */
 .attendance-main-table th:nth-child(2),
 .attendance-main-table td:nth-child(2) {
-  min-width: 180px;
+  min-width: 160px;
 }
 
 /* Cột trạng thái */
 .attendance-main-table th:last-child,
 .attendance-main-table td:last-child {
-  min-width: 160px;
+  min-width: 145px;
 }
 
 .attendance-empty {
   text-align: center;
   color: #64748b !important;
-  padding: 30px !important;
+  padding: 26px !important;
 }
 
 /* =========================================================
@@ -323,12 +358,12 @@ body {
    ========================================================= */
 
 .status-select {
-  min-width: 145px;
-  height: 34px;
+  min-width: 130px;
+  height: 32px;
   border-radius: 8px;
   border: 1px solid #cbd5e1;
   padding: 0 8px;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 800;
   outline: none;
   cursor: pointer;
@@ -379,8 +414,13 @@ body {
    TOPBAR RESPONSIVE NHẸ
    ========================================================= */
 
+.topbar {
+  max-width: 100%;
+  overflow: hidden;
+}
+
 .topbar h1 {
-  font-size: clamp(24px, 2.4vw, 34px);
+  font-size: clamp(24px, 2vw, 30px);
   line-height: 1.15;
   max-width: 100%;
 }
@@ -399,50 +439,14 @@ body {
 }
 
 /* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 1100px) {
-  .attendance-stat-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .attendance-main-table {
-    min-width: 900px;
-  }
-}
-
-@media (max-width: 900px) {
-  .attendance-filter-card,
-  .attendance-control-left {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 700px) {
-  .attendance-stat-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .attendance-list-card {
-    max-height: 550px;
-  }
-
-  .attendance-table-scroll {
-    max-height: 460px;
-  }
-}
-
-
-
-/* =========================
    USER INFO DROPDOWN
    Giống menu xổ xuống, không dùng panel bên phải
-========================= */
+   ========================================================= */
 
 .user-info-dropdown {
-  width: 360px;
-  padding: 18px;
+  width: 330px;
+  max-width: calc(100vw - 30px);
+  padding: 16px;
   border-radius: 14px;
 }
 
@@ -455,7 +459,7 @@ body {
 .user-info-dropdown .profile-top b {
   display: block;
   color: #001f5b;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 900;
   margin-bottom: 4px;
 }
@@ -463,39 +467,39 @@ body {
 .user-info-dropdown .profile-top p {
   margin: 0;
   color: #64748b;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
 }
 
 .user-info-dropdown hr {
   border: none;
   border-top: 1px solid #cbd5e1;
-  margin: 14px 0;
+  margin: 12px 0;
 }
 
 .dropdown-info-row {
   display: grid;
-  grid-template-columns: 26px 92px 1fr;
+  grid-template-columns: 24px 84px 1fr;
   align-items: center;
-  gap: 8px;
-  padding: 8px 0;
+  gap: 7px;
+  padding: 7px 0;
 }
 
 .dropdown-info-row span {
-  font-size: 16px;
+  font-size: 15px;
   color: #64748b;
 }
 
 .dropdown-info-row p {
   margin: 0;
   color: #475569;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
 }
 
 .dropdown-info-row b {
   color: #001f5b;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 800;
   line-height: 1.35;
 }
@@ -515,4 +519,88 @@ body {
 .profile-menu .logout-red:hover {
   color: #b91c1c !important;
   text-decoration: underline;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1280px) {
+  .attendance-stat-card {
+    min-height: 82px;
+    padding: 13px 14px;
+    gap: 12px;
+  }
+
+  .attendance-icon {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+    font-size: 19px;
+  }
+
+  .attendance-stat-card p,
+  .attendance-stat-title {
+    font-size: 13px;
+  }
+
+  .attendance-stat-card h3 {
+    font-size: 24px;
+  }
+
+  .attendance-list-card {
+    max-height: calc(100vh - 300px);
+  }
+
+  .attendance-table-scroll {
+    max-height: calc(100vh - 360px);
+  }
+}
+
+@media (max-width: 1100px) {
+  .attendance-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .attendance-main-table {
+    min-width: 820px;
+  }
+}
+
+@media (max-width: 900px) {
+  .attendance-filter-card,
+  .attendance-control-left {
+    grid-template-columns: 1fr;
+  }
+
+  .attendance-list-card {
+    max-height: none;
+  }
+
+  .attendance-table-scroll {
+    max-height: 460px;
+  }
+}
+
+@media (max-width: 700px) {
+  .attendance-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .attendance-stat-card {
+    min-height: 78px;
+  }
+
+  .attendance-list-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .attendance-list-head h3 {
+    font-size: 16px;
+  }
+
+  .attendance-table-scroll {
+    max-height: 430px;
+  }
 }
