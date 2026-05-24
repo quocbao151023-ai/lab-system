@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Theo dõi ra vào phòng Lab</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='attendance.css') }}">
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='images/logo-vlu.png.png') }}" alt="Van Lang">
+    </div>
+
+    <nav>
+      <a href="{{ url_for('dashboard') }}">📅 Lịch phòng lab</a>
+      <a href="{{ url_for('cleaning_report') }}">🧹 Báo cáo vệ sinh</a>
+      <a href="{{ url_for('attendance') }}" class="active">📊 Theo dõi ra vào</a>
+      <a href="{{ url_for('lab_performance') }}">📈 Hiệu suất phòng lab</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div>
+        <h1>HỆ THỐNG QUẢN LÝ PHÒNG LAB</h1>
+        <p>Khoa Kỹ thuật và Quản lý Công nghiệp</p>
+      </div>
+
+      <div class="user-area">
+
+        <!-- CHUÔNG THÔNG BÁO -->
+        <div class="bell-wrapper">
+          <button class="bell" type="button" onclick="toggleNotificationPanel(event)">
+            🔔<b id="notificationCount">0</b>
+          </button>
+
+          <div class="notification-panel" id="notificationPanel">
+            <div class="notification-head">
+              <b>Thông báo hệ thống</b>
+              <span id="notificationStatus">Đang tải...</span>
+            </div>
+
+            <div id="notificationList" class="notification-list">
+              <p class="notification-empty">Chưa có thông báo mới</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- AVATAR -->
+        <div class="avatar" onclick="toggleUserMenu()">QB</div>
+
+        <!-- NÚT SỔ XUỐNG -->
+        <button class="user-toggle" type="button" onclick="toggleUserMenu()">▾</button>
+
+        <!-- MENU THÔNG TIN XỔ XUỐNG -->
+<div class="profile-menu user-info-dropdown" id="userPanel">
+
+  <div class="profile-top">
+    <div class="avatar small">QB</div>
+    <div>
+      <b>Nguyễn Quốc Bảo</b>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="dropdown-info-row">
+    <span>👥</span>
+    <p>Vai trò</p>
+    <b>Kỹ thuật viên</b>
+  </div>
+
+  <div class="dropdown-info-row">
+    <span>🏢</span>
+    <p>Phòng ban</p>
+    <b>Khoa Kỹ thuật và Quản lý Công nghiệp</b>
+  </div>
+
+  <hr>
+
+  <a class="logout logout-red" href="{{ url_for('logout') }}">
+    ↪ Đăng xuất
+  </a>
+
+</div>
+
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <section class="content">
+      <div class="layout-main">
+        <div class="attendance-content">
+
+          <!-- STAT CARDS -->
+          <section class="attendance-stat-grid">
+
+            <div class="attendance-stat-card purple">
+              <div class="attendance-icon">👥</div>
+              <div class="attendance-stat-info">
+                <p class="attendance-stat-title">Tổng đăng ký</p>
+                <h3 id="statTotal">0 <span>sinh viên</span></h3>
+              </div>
+            </div>
+
+            <div class="attendance-stat-card green">
+              <div class="attendance-icon">✅</div>
+              <div class="attendance-stat-info">
+                <p class="attendance-stat-title">Có mặt</p>
+                <h3 id="statPresent">0 <span>sinh viên</span></h3>
+              </div>
+            </div>
+
+            <div class="attendance-stat-card blue">
+              <div class="attendance-icon">🕘</div>
+              <div class="attendance-stat-info">
+                <p class="attendance-stat-title">Chưa điểm danh</p>
+                <h3 id="statPending">0 <span>sinh viên</span></h3>
+              </div>
+            </div>
+
+            <div class="attendance-stat-card orange">
+              <div class="attendance-icon">❌</div>
+              <div class="attendance-stat-info">
+                <p class="attendance-stat-title">Vắng</p>
+                <h3 id="statAbsent">0 <span>sinh viên</span></h3>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- FILTER + TABLE AREA -->
+          <section class="attendance-table-section">
+
+            <div class="attendance-filter-card">
+
+              <div class="attendance-filter-group">
+                <label for="filterDate">Ngày sử dụng</label>
+                <input type="date" id="filterDate">
+              </div>
+
+              <div class="attendance-filter-group">
+                <label for="filterLab">Phòng Lab</label>
+                <select id="filterLab">
+                  <option value="">Tất cả Lab</option>
+                  <option value="Lab 1">Lab 1</option>
+                  <option value="Lab 2">Lab 2</option>
+                  <option value="Lab 3">Lab 3</option>
+                </select>
+              </div>
+
+              <div class="attendance-filter-group">
+                <label for="filterShift">Ca</label>
+                <select id="filterShift">
+                  <option value="">Tất cả ca</option>
+                  <option value="Ca 1">Ca 1</option>
+                  <option value="Ca 2">Ca 2</option>
+                  <option value="Ca 3">Ca 3</option>
+                  <option value="Ca 4">Ca 4</option>
+                </select>
+              </div>
+
+            </div>
+
+            <!-- TABLE CARD -->
+            <div class="attendance-list-card">
+
+              <div class="attendance-list-head">
+                <h3>DANH SÁCH THEO DÕI RA/VÀO</h3>
+              </div>
+
+              <div class="attendance-table-scroll">
+                <table class="attendance-main-table">
+                  <thead>
+                    <tr>
+                      <th>Mã sinh viên</th>
+                      <th>Họ tên</th>
+                      <th>Mã đăng ký</th>
+                      <th>Lab</th>
+                      <th>Ngày</th>
+                      <th>Ca</th>
+                      <th>Loại</th>
+                      <th>Trạng thái điểm danh</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="attendanceTableBody">
+                    <tr>
+                      <td colspan="8" class="attendance-empty">
+                        Đang tải dữ liệu...
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div>
+    <b>KHOA KỸ THUẬT VÀ QUẢN LÝ CÔNG NGHIỆP</b>
+    <p>Phone: 028.71098.256 (4340) | Email: k.iem@vlu.edu.vn</p>
+  </div>
+
+  <div>
+    <b>TRƯỜNG ĐẠI HỌC VĂN LANG</b>
+    <p>© 2024 Van Lang University. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+/* =========================
+   USER MENU
+========================= */
+
+function toggleUserMenu() {
+  const panel = document.getElementById("userPanel");
+
+  if (panel) {
+    panel.classList.toggle("show");
+  }
+}
+
+document.addEventListener("click", function (event) {
+  const userArea = document.querySelector(".user-area");
+  const userPanel = document.getElementById("userPanel");
+
+  if (!userArea || !userPanel) return;
+
+  if (!userArea.contains(event.target)) {
+    userPanel.classList.remove("show");
+  }
+});
+
+/* =========================
+   GLOBAL DATA
+========================= */
+
+let attendanceData = [];
+let filteredAttendanceData = [];
+
+/* =========================
+   LOAD DATA
+========================= */
+
+async function loadAttendanceBookings() {
+  const tbody = document.getElementById("attendanceTableBody");
+
+  try {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" class="attendance-empty">
+          Đang tải dữ liệu...
+        </td>
+      </tr>
+    `;
+
+    const res = await fetch("/api/attendance-bookings");
+    const json = await res.json();
+
+    console.log("ATTENDANCE API RAW:", json);
+
+    if (!json.success) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="8" class="attendance-empty">
+            Không thể tải dữ liệu điểm danh: ${escapeHtml(json.error || "")}
+          </td>
+        </tr>
+      `;
+
+      attendanceData = [];
+      filteredAttendanceData = [];
+      renderAttendanceSummary();
+      return;
+    }
+
+    attendanceData = normalizeAttendanceData(json.data || []);
+
+    attendanceData.sort((a, b) => {
+      const dateA = parseAttendanceDateTime(a.date_input, a.shift);
+      const dateB = parseAttendanceDateTime(b.date_input, b.shift);
+
+      return dateA - dateB;
+    });
+
+    filteredAttendanceData = [...attendanceData];
+
+    setDefaultDate();
+    applyAttendanceFilter();
+
+  } catch (error) {
+    console.error("LOAD ATTENDANCE ERROR:", error);
+
+    attendanceData = [];
+    filteredAttendanceData = [];
+
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" class="attendance-empty">
+          Lỗi tải dữ liệu điểm danh. Vui lòng kiểm tra API /api/attendance-bookings.
+        </td>
+      </tr>
+    `;
+
+    renderAttendanceSummary();
+  }
+}
+
+/* =========================
+   NORMALIZE DATA
+========================= */
+
+function normalizeAttendanceData(data) {
+  return data.map((item, index) => {
+    return {
+      row_id: index,
+      booking_id: String(item.booking_id || "").trim(),
+      register_type: String(item.register_type || "").trim(),
+      name: String(item.name || "").trim(),
+      student_id: String(item.student_id || "").trim(),
+      lab: normalizeLab(item.lab || ""),
+      date: String(item.date || "").trim(),
+      date_input: convertAnyDateToInputDate(item.date || ""),
+      shift: normalizeShift(item.shift || ""),
+      role: String(item.role || "").trim(),
+      raw_members: String(item.raw_members || "").trim(),
+      attendance_status: normalizeAttendanceStatusValue(item.attendance_status || "Chưa điểm danh")
+    };
+  }).filter(item => item.name || item.student_id || item.booking_id);
+}
+
+function removeVietnameseAccent(str) {
+  return String(str || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/Đ/g, "D");
+}
+
+function normalizeLab(value) {
+  const raw = String(value || "").trim();
+
+  if (!raw) return "";
+
+  const text = removeVietnameseAccent(raw).toLowerCase();
+
+  if (text.includes("lab 1") || text.includes("lab1")) return "Lab 1";
+  if (text.includes("lab 2") || text.includes("lab2")) return "Lab 2";
+  if (text.includes("lab 3") || text.includes("lab3")) return "Lab 3";
+
+  return raw;
+}
+
+function normalizeShift(value) {
+  const raw = String(value || "").trim();
+
+  if (!raw) return "";
+
+  const text = removeVietnameseAccent(raw).toLowerCase();
+
+  if (text.includes("ca 1") || text.includes("ca1")) return "Ca 1";
+  if (text.includes("ca 2") || text.includes("ca2")) return "Ca 2";
+  if (text.includes("ca 3") || text.includes("ca3")) return "Ca 3";
+  if (text.includes("ca 4") || text.includes("ca4")) return "Ca 4";
+
+  return raw;
+}
+
+function normalizeAttendanceStatusValue(status) {
+  const raw = String(status || "").trim();
+
+  if (!raw) return "Chưa điểm danh";
+
+  const text = removeVietnameseAccent(raw).toLowerCase();
+
+  if (text.includes("co mat") || text.includes("present")) {
+    return "Có mặt";
+  }
+
+  if (text.includes("vang") || text.includes("absent")) {
+    return "Vắng";
+  }
+
+  return "Chưa điểm danh";
+}
+
+/* =========================
+   DEFAULT DATE
+========================= */
+
+function setDefaultDate() {
+  const dateInput = document.getElementById("filterDate");
+
+  if (!dateInput) return;
+
+  if (dateInput.value) return;
+
+  const today = new Date();
+
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+
+  dateInput.value = `${year}-${month}-${day}`;
+}
+
+/* =========================
+   FILTER
+========================= */
+
+function applyAttendanceFilter() {
+  const dateInput = document.getElementById("filterDate");
+  const labInput = document.getElementById("filterLab");
+  const shiftInput = document.getElementById("filterShift");
+
+  const selectedDate = dateInput ? dateInput.value : "";
+  const selectedLab = labInput ? labInput.value : "";
+  const selectedShift = shiftInput ? shiftInput.value : "";
+
+  filteredAttendanceData = attendanceData.filter(item => {
+    const matchDate = !selectedDate || item.date_input === selectedDate;
+    const matchLab = !selectedLab || item.lab === selectedLab;
+    const matchShift = !selectedShift || item.shift === selectedShift;
+
+    return matchDate && matchLab && matchShift;
+  });
+
+  renderAttendanceTable();
+  renderAttendanceSummary();
+}
+
+/* =========================
+   TABLE
+========================= */
+
+function renderAttendanceTable() {
+  const tbody = document.getElementById("attendanceTableBody");
+
+  if (!tbody) return;
+
+  if (!filteredAttendanceData.length) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" class="attendance-empty">
+          Không có sinh viên phù hợp với bộ lọc
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+  tbody.innerHTML = filteredAttendanceData.map(item => {
+    return `
+      <tr>
+        <td>${escapeHtml(item.student_id || "Chưa có MSSV")}</td>
+        <td><b>${escapeHtml(item.name || "-")}</b></td>
+        <td>${escapeHtml(item.booking_id || "-")}</td>
+        <td>${escapeHtml(item.lab || "-")}</td>
+        <td>${escapeHtml(item.date || "-")}</td>
+        <td>${escapeHtml(item.shift || "-")}</td>
+        <td>${escapeHtml(item.role || "-")}</td>
+        <td>
+          <select class="status-select ${getStatusClass(item.attendance_status)}"
+                  onchange="updateAttendanceStatus(${item.row_id}, this.value)">
+            <option value="Chưa điểm danh" ${item.attendance_status === "Chưa điểm danh" ? "selected" : ""}>
+              Chưa điểm danh
+            </option>
+            <option value="Có mặt" ${item.attendance_status === "Có mặt" ? "selected" : ""}>
+              Có mặt
+            </option>
+            <option value="Vắng" ${item.attendance_status === "Vắng" ? "selected" : ""}>
+              Vắng
+            </option>
+          </select>
+        </td>
+      </tr>
+    `;
+  }).join("");
+}
+
+/* =========================
+   SUMMARY
+========================= */
+
+function renderAttendanceSummary() {
+  const total = filteredAttendanceData.length;
+
+  const present = filteredAttendanceData.filter(item =>
+    item.attendance_status === "Có mặt"
+  ).length;
+
+  const absent = filteredAttendanceData.filter(item =>
+    item.attendance_status === "Vắng"
+  ).length;
+
+  const pending = filteredAttendanceData.filter(item =>
+    !item.attendance_status || item.attendance_status === "Chưa điểm danh"
+  ).length;
+
+  setHtml("statTotal", `${total} <span>sinh viên</span>`);
+  setHtml("statPresent", `${present} <span>sinh viên</span>`);
+  setHtml("statPending", `${pending} <span>sinh viên</span>`);
+  setHtml("statAbsent", `${absent} <span>sinh viên</span>`);
+}
+
+function setHtml(id, value) {
+  const el = document.getElementById(id);
+
+  if (el) {
+    el.innerHTML = value;
+  }
+}
+
+/* =========================
+   SAVE ATTENDANCE
+========================= */
+
+async function updateAttendanceStatus(rowId, status) {
+  const item = attendanceData.find(record => record.row_id === rowId);
+
+  if (!item) {
+    alert("Không tìm thấy dòng điểm danh cần cập nhật.");
+    return;
+  }
+
+  const oldStatus = item.attendance_status;
+
+  item.attendance_status = status;
+
+  renderAttendanceTable();
+  renderAttendanceSummary();
+
+  try {
+    const res = await fetch("/api/save-attendance-status", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        booking_id: item.booking_id,
+        student_id: item.student_id,
+        name: item.name,
+        lab: item.lab,
+        date: item.date,
+        shift: item.shift,
+        role: item.role,
+        attendance_status: status
+      })
+    });
+
+    const json = await res.json();
+
+    console.log("SAVE ATTENDANCE RESPONSE:", json);
+
+    if (!json.success) {
+      item.attendance_status = oldStatus;
+      renderAttendanceTable();
+      renderAttendanceSummary();
+
+      alert(json.error || "Không thể lưu trạng thái điểm danh.");
+    }
+
+  } catch (error) {
+    console.error("SAVE ATTENDANCE ERROR:", error);
+
+    item.attendance_status = oldStatus;
+    renderAttendanceTable();
+    renderAttendanceSummary();
+
+    alert("Lỗi lưu trạng thái điểm danh. Vui lòng kiểm tra API /api/save-attendance-status.");
+  }
+}
+
+/* =========================
+   STATUS CLASS
+========================= */
+
+function getStatusClass(status) {
+  if (status === "Có mặt") return "status-present";
+  if (status === "Vắng") return "status-absent";
+  return "status-pending";
+}
+
+/* =========================
+   DATE HELPER
+========================= */
+
+function parseAttendanceDateTime(dateInput, shift) {
+  if (!dateInput) return 0;
+
+  const parts = String(dateInput).split("-");
+
+  if (parts.length !== 3) return 0;
+
+  const year = Number(parts[0]);
+  const month = Number(parts[1]) - 1;
+  const day = Number(parts[2]);
+
+  let hour = 0;
+  let minute = 0;
+
+  if (shift === "Ca 1") {
+    hour = 7;
+    minute = 0;
+  } else if (shift === "Ca 2") {
+    hour = 9;
+    minute = 30;
+  } else if (shift === "Ca 3") {
+    hour = 13;
+    minute = 0;
+  } else if (shift === "Ca 4") {
+    hour = 15;
+    minute = 30;
+  }
+
+  return new Date(year, month, day, hour, minute).getTime();
+}
+
+function convertAnyDateToInputDate(dateText) {
+  if (!dateText) return "";
+
+  const text = String(dateText).trim();
+
+  let match = text.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+
+  if (match) {
+    const dd = String(match[1]).padStart(2, "0");
+    const mm = String(match[2]).padStart(2, "0");
+    const yyyy = match[3];
+
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  match = text.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
+
+  if (match) {
+    const yyyy = match[1];
+    const mm = String(match[2]).padStart(2, "0");
+    const dd = String(match[3]).padStart(2, "0");
+
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  return "";
+}
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+async function loadSystemNotifications() {
+  const countEl = document.getElementById("notificationCount");
+  const listEl = document.getElementById("notificationList");
+  const statusEl = document.getElementById("notificationStatus");
+
+  if (!countEl || !listEl) return;
+
+  try {
+    const res = await fetch("/api/notifications");
+    const json = await res.json();
+
+    if (!json.success) {
+      countEl.innerText = "0";
+
+      listEl.innerHTML = `
+        <p class="notification-empty">
+          Không thể tải thông báo
+        </p>
+      `;
+
+      if (statusEl) {
+        statusEl.innerText = "Lỗi";
+      }
+
+      return;
+    }
+
+    const data = json.data || [];
+    const hiddenNotifications = getHiddenNotifications();
+
+    const visibleData = data.filter(item => {
+      const id = item.notification_id || `${item.type}-${item.id_key}`;
+      return !hiddenNotifications.includes(id);
+    });
+
+    countEl.innerText = visibleData.length;
+
+    if (statusEl) {
+      statusEl.innerText = `${visibleData.length} thông báo`;
+    }
+
+    if (!visibleData.length) {
+      listEl.innerHTML = `
+        <p class="notification-empty">
+          Chưa có thông báo mới
+        </p>
+      `;
+      return;
+    }
+
+    listEl.innerHTML = visibleData.map(item => {
+      const levelClass = getNotificationLevelClass(item.level);
+      const notificationId = item.notification_id || `${item.type}-${item.id_key}`;
+
+      return `
+        <div class="notification-item ${levelClass}" data-id="${escapeHtml(notificationId)}">
+          <button class="notification-close"
+                  type="button"
+                  onclick="hideNotification('${escapeJs(notificationId)}')">
+            ×
+          </button>
+
+          <b>${escapeHtml(String(item.title || "THÔNG BÁO").toUpperCase())}</b>
+          <p>${escapeHtml(item.message || "")}</p>
+          <small>${escapeHtml(item.id_key || "")}</small>
+        </div>
+      `;
+    }).join("");
+
+  } catch (error) {
+    console.error("LOAD NOTIFICATIONS ERROR:", error);
+
+    countEl.innerText = "0";
+
+    listEl.innerHTML = `
+      <p class="notification-empty">
+        Lỗi kết nối thông báo
+      </p>
+    `;
+
+    if (statusEl) {
+      statusEl.innerText = "Lỗi";
+    }
+  }
+}
+
+function toggleNotificationPanel(event) {
+  if (event) {
+    event.stopPropagation();
+  }
+
+  const panel = document.getElementById("notificationPanel");
+
+  if (panel) {
+    panel.classList.toggle("show");
+  }
+}
+
+function getNotificationLevelClass(level) {
+  if (level === "danger") return "notification-danger";
+  if (level === "warning") return "notification-warning";
+  return "notification-info";
+}
+
+function getHiddenNotifications() {
+  try {
+    return JSON.parse(localStorage.getItem("hiddenNotifications") || "[]");
+  } catch (error) {
+    return [];
+  }
+}
+
+function hideNotification(notificationId) {
+  const hidden = getHiddenNotifications();
+
+  if (!hidden.includes(notificationId)) {
+    hidden.push(notificationId);
+  }
+
+  localStorage.setItem("hiddenNotifications", JSON.stringify(hidden));
+
+  const item = document.querySelector(`.notification-item[data-id="${CSS.escape(notificationId)}"]`);
+
+  if (item) {
+    item.remove();
+  }
+
+  const remainingItems = document.querySelectorAll(".notification-item").length;
+
+  const countEl = document.getElementById("notificationCount");
+  const statusEl = document.getElementById("notificationStatus");
+  const listEl = document.getElementById("notificationList");
+
+  if (countEl) countEl.innerText = remainingItems;
+  if (statusEl) statusEl.innerText = `${remainingItems} thông báo`;
+
+  if (remainingItems === 0 && listEl) {
+    listEl.innerHTML = `
+      <p class="notification-empty">
+        Chưa có thông báo mới
+      </p>
+    `;
+  }
+}
+
+document.addEventListener("click", function (event) {
+  const wrapper = document.querySelector(".bell-wrapper");
+  const panel = document.getElementById("notificationPanel");
+
+  if (!wrapper || !panel) return;
+
+  if (!wrapper.contains(event.target)) {
+    panel.classList.remove("show");
+  }
+});
+
+/* =========================
+   SAFE TEXT
+========================= */
+
+function escapeHtml(text) {
+  return String(text || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function escapeJs(text) {
+  return String(text || "")
+    .replace(/\\/g, "\\\\")
+    .replace(/'/g, "\\'")
+    .replace(/"/g, "&quot;")
+    .replace(/\n/g, " ");
+}
+
+/* =========================
+   INIT
+========================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+  const dateInput = document.getElementById("filterDate");
+  const labInput = document.getElementById("filterLab");
+  const shiftInput = document.getElementById("filterShift");
+
+  if (dateInput) dateInput.addEventListener("change", applyAttendanceFilter);
+  if (labInput) labInput.addEventListener("change", applyAttendanceFilter);
+  if (shiftInput) shiftInput.addEventListener("change", applyAttendanceFilter);
+
+  loadAttendanceBookings();
+  loadSystemNotifications();
+
+  setInterval(loadSystemNotifications, 60000);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1002 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f7fb;
+  color: #061b55;
+  overflow: hidden;
+}
+
+body {
+  min-width: 0;
+}
+
+/* =========================
+   APP LAYOUT
+========================= */
+
+.app {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 42px);
+  overflow: hidden;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+  width: 220px;
+  height: 100%;
+  background: #ffffff;
+  border-right: 1px solid #e5e9f0;
+  padding: 14px 0;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.logo {
+  padding: 0 22px 16px;
+  border-bottom: 1px solid #eef1f5;
+}
+
+.logo img {
+  width: 150px;
+  max-width: 100%;
+  display: block;
+}
+
+.sidebar nav {
+  padding-top: 14px;
+}
+
+.sidebar nav a {
+  display: block;
+  padding: 12px 22px;
+  font-size: 14px;
+  color: #0b1f44;
+  text-decoration: none;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.sidebar nav a.active {
+  background: #fff3f3;
+  color: #e00012;
+  border-left: 4px solid #e00012;
+  font-weight: 800;
+  padding-left: 18px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar {
+  height: 72px;
+  background: #ffffff;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.055);
+  position: relative;
+  z-index: 50;
+  flex-shrink: 0;
+}
+
+.topbar > div:first-child,
+.topbar-title {
+  min-width: 0;
+  flex: 1;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.1;
+  color: #061b55;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar p {
+  margin: 4px 0 0;
+  color: #4b5875;
+  font-size: 13px;
+}
+
+/* =========================
+   USER AREA
+========================= */
+
+.user-area {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  position: relative;
+  flex-shrink: 0;
+  min-width: max-content;
+}
+
+.user-area > div:not(.avatar):not(.bell-wrapper):not(.profile-menu) {
+  display: none !important;
+}
+
+.user-area > a.logout,
+.user-area > a.logout-red {
+  display: none !important;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: #2837b8;
+  color: #ffffff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  flex-shrink: 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.avatar.small {
+  width: 36px;
+  height: 36px;
+}
+
+.user-toggle {
+  border: none !important;
+  background: transparent !important;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 0 2px !important;
+  flex-shrink: 0;
+  color: #001f5b;
+}
+
+/* =========================
+   USER DROPDOWN
+========================= */
+
+.profile-menu {
+  display: none;
+  position: absolute;
+  top: 52px;
+  right: 0;
+  width: 330px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+  z-index: 999;
+}
+
+.profile-menu.show {
+  display: block;
+}
+
+.profile-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-info-dropdown {
+  width: 330px;
+  padding: 16px;
+  border-radius: 14px;
+}
+
+.user-info-dropdown .profile-top b {
+  display: block;
+  color: #001f5b;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.user-info-dropdown .profile-top p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.user-info-dropdown hr {
+  border: none;
+  border-top: 1px solid #cbd5e1;
+  margin: 12px 0;
+}
+
+.dropdown-info-row {
+  display: grid;
+  grid-template-columns: 24px 84px 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 0;
+}
+
+.dropdown-info-row span {
+  font-size: 15px;
+  color: #64748b;
+}
+
+.dropdown-info-row p {
+  margin: 0;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.dropdown-info-row b {
+  color: #001f5b;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.profile-menu .logout,
+.profile-menu .logout-red {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #dc2626 !important;
+  font-weight: 900;
+  text-decoration: none;
+  padding: 6px 0 0;
+}
+
+.profile-menu .logout:hover,
+.profile-menu .logout-red:hover {
+  color: #b91c1c !important;
+  text-decoration: underline;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content {
+  flex: 1;
+  min-height: 0;
+  padding: 12px 16px 10px;
+  background: #f4f7fb;
+  overflow: hidden;
+}
+
+.layout-main {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.top-filter-bar,
+.right-panel,
+.dashboard-grid {
+  display: none;
+}
+
+/* =========================
+   FORM ELEMENT
+========================= */
+
+button,
+select {
+  border: 1px solid #dfe5ef;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 0 12px;
+  color: #0b1f44;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* =========================
+   CARD LỊCH
+========================= */
+
+.calendar-card {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* =========================
+   FILTER + TUẦN
+========================= */
+
+/* =========================
+   FILTER + TUẦN
+========================= */
+
+.calendar-top {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+/* TUẦN LUÔN NẰM CHÍNH GIỮA KHUNG */
+.calendar-head {
+  width: 100%;
+  height: 34px;
+  display: grid;
+  grid-template-columns: 34px minmax(0, auto) 34px;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.calendar-head h2 {
+  margin: 0;
+  font-size: clamp(18px, 1.55vw, 23px);
+  color: #102a5e;
+  font-weight: 900;
+  white-space: nowrap;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.calendar-head button {
+  width: 34px;
+  height: 27px;
+  min-width: 34px;
+  padding: 0;
+  border: 1px solid #e3e8ef;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #102a5e;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* BỘ LỌC NẰM DƯỚI, 2 RÌA TRÁI - PHẢI */
+.filter-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 0;
+}
+
+.filter-row select {
+  height: 36px;
+  min-width: 150px;
+  max-width: 190px;
+  padding: 0 12px;
+  border: 1px solid #e3e8ef;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 13px;
+  color: #102a5e;
+  font-weight: 700;
+}
+
+/* =========================
+   SUMMARY - KHỐI THỐNG KÊ
+========================= */
+
+.lab-summary-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.summary-box {
+  height: 56px;
+  background: #f8fbff;
+  border: 1px solid #e3e8ef;
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.summary-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #102a5e;
+  line-height: 1.25;
+}
+
+.summary-number {
+  font-size: 26px;
+  line-height: 1;
+  font-weight: 900;
+  color: #1479ff;
+}
+
+.progress-box {
+  height: 56px;
+  background: #f8fbff;
+  border: 1px solid #e3e8ef;
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(95px, 1fr));
+  gap: 14px;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.progress-item {
+  width: 100%;
+  min-width: 0;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  gap: 8px;
+}
+
+.progress-info span,
+.progress-info strong {
+  font-size: 13px;
+  font-weight: 900;
+  color: #102a5e;
+  white-space: nowrap;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #dfe7f2;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #1479ff;
+  border-radius: 999px;
+}
+
+/* =========================
+   KHỐI LỊCH RIÊNG
+   CÙNG CHIỀU NGANG VỚI THỐNG KÊ
+   CHỈ BÊN TRONG LỊCH ĐƯỢC KÉO NGANG
+========================= */
+
+.calendar-scroll {
+  width: 100%;
+  max-width: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 10px;
+  border: 1px solid #e3e8ef;
+  background: #ffffff;
+}
+
+/* Thanh kéo ngang riêng của lịch */
+.calendar-scroll::-webkit-scrollbar {
+  height: 10px;
+}
+
+.calendar-scroll::-webkit-scrollbar-thumb {
+  background: #b8c7dc;
+  border-radius: 999px;
+}
+
+.calendar-scroll::-webkit-scrollbar-track {
+  background: #eef3f9;
+  border-radius: 999px;
+}
+
+/* =========================
+   BẢNG LỊCH BÊN TRONG
+========================= */
+
+.calendar {
+  display: grid;
+  grid-template-columns: 86px repeat(6, minmax(165px, 1fr));
+  grid-template-rows: 48px repeat(4, minmax(0, 1fr));
+
+  width: max-content;
+  min-width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.calendar > div {
+  position: relative;
+  border-right: 1px solid #e3e8ef;
+  border-bottom: 1px solid #e3e8ef;
+  padding: 8px;
+  font-size: 13px;
+  background: #ffffff;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.calendar > div:nth-child(-n+7) {
+  text-align: center;
+  font-weight: 800;
+  color: #061b55;
+  background: #fbfcfe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.calendar > div:nth-child(7n) {
+  border-right: none;
+}
+
+.calendar > div:nth-last-child(-n+7) {
+  border-bottom: none;
+}
+
+.calendar span {
+  font-weight: 500;
+  color: #183768;
+}
+
+.time {
+  text-align: center;
+  font-weight: 900;
+  color: #061b55;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.35;
+  background: #ffffff;
+}
+
+.time span {
+  margin-top: 4px;
+  font-weight: 500;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.calendar-cell {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.calendar-cell::-webkit-scrollbar {
+  width: 6px;
+}
+
+.calendar-cell::-webkit-scrollbar-thumb {
+  background: #c7d4e6;
+  border-radius: 999px;
+}
+
+.calendar-cell::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.lab-slot {
+  display: block;
+  width: 100%;
+  height: 28px;
+  min-height: 28px;
+  padding: 4px 9px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 18px;
+}
+
+.lab-slot b {
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.lab-1 {
+  background: #eaf3ff;
+  color: #005bbb;
+  border: 1px solid #9ecbff;
+}
+
+.lab-2 {
+  background: #eaf8ee;
+  color: #0b8a35;
+  border: 1px solid #9bd7ad;
+}
+
+.lab-3 {
+  background: #fff8df;
+  color: #b77900;
+  border: 1px solid #f1cf72;
+}
+
+.full-slot {
+  opacity: 0.65;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  height: 42px;
+  background: #e00012;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  font-size: 11px;
+  gap: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+footer b {
+  font-size: 11px;
+}
+
+footer p {
+  margin: 2px 0 0;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+/* =========================
+   TẮT PROFILE SIDE PANEL CŨ
+========================= */
+
+.profile-overlay,
+.profile-side-panel {
+  display: none !important;
+}
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+.bell-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bell {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border: none !important;
+  background: transparent !important;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bell b {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #e60012;
+  color: #ffffff;
+  font-size: 10px;
+  line-height: 17px;
+  text-align: center;
+}
+
+.notification-panel {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  width: 350px;
+  max-height: 380px;
+  background: #ffffff;
+  border: 1px solid #dbe4f0;
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+  z-index: 9999;
+  display: none;
+  overflow: hidden;
+}
+
+.notification-panel.show {
+  display: block;
+}
+
+.notification-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #001f5f;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.notification-head span {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.notification-list {
+  padding: 8px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.notification-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.notification-list::-webkit-scrollbar-thumb {
+  background: #b8c7dc;
+  border-radius: 10px;
+}
+
+.notification-list::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.notification-item {
+  position: relative;
+  padding: 13px 36px 13px 13px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.notification-item b {
+  display: block;
+  font-size: 13px;
+  color: #001f5f;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.notification-item p {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.notification-item small {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.notification-empty {
+  padding: 18px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.notification-info {
+  background: #eff6ff;
+}
+
+.notification-warning {
+  background: #fff7ed;
+}
+
+.notification-danger {
+  background: #fef2f2;
+}
+
+.notification-close {
+  position: absolute !important;
+  top: 8px !important;
+  right: 10px !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 1px solid #dbe4f0 !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  color: #64748b !important;
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  line-height: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.notification-close:hover {
+  background: #fee2e2 !important;
+  border-color: #fecaca !important;
+  color: #dc2626 !important;
+}
+
+/* =========================
+   RESPONSIVE
+   KHÔNG ÉP LỊCH LÀM TRÀN TRANG
+========================= */
+
+@media (max-width: 1100px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .logo {
+    padding: 0 18px 14px;
+  }
+
+  .logo img {
+    width: 132px;
+  }
+
+  .sidebar nav a {
+    padding: 11px 18px;
+    font-size: 13px;
+  }
+
+  .sidebar nav a.active {
+    padding-left: 14px;
+  }
+
+  .topbar {
+    height: 68px;
+    padding: 0 16px;
+  }
+
+  .topbar h1 {
+    font-size: 22px;
+  }
+
+  .topbar p {
+    font-size: 12px;
+  }
+
+  .content {
+    padding: 10px 12px 8px;
+  }
+
+  .calendar-card {
+    padding: 12px;
+  }
+
+  .calendar-top {
+  gap: 8px;
+}
+
+.calendar-head {
+  justify-content: center;
+}
+
+.filter-row {
+  justify-content: space-between;
+}
+
+  .calendar-head h2 {
+    max-width: 100%;
+  }
+
+  .lab-summary-row {
+    grid-template-columns: 190px minmax(0, 1fr);
+  }
+
+  .summary-box,
+  .progress-box {
+    height: 52px;
+  }
+
+  .calendar {
+    grid-template-columns: 86px repeat(6, minmax(160px, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 185px;
+  }
+
+  .calendar-card {
+    padding: 10px;
+  }
+
+  .content {
+    padding: 8px 10px 8px;
+  }
+
+  .calendar-top {
+    grid-template-columns: 1fr;
+  }
+
+  .lab-summary-row {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-box {
+    grid-template-columns: repeat(3, minmax(95px, 1fr));
+  }
+
+  .calendar {
+    grid-template-columns: 86px repeat(6, minmax(155px, 1fr));
+  }
+
+  .notification-panel {
+    right: -80px;
+    width: 320px;
+  }
+
+  .profile-menu {
+    right: -40px;
+    width: 320px;
+  }
+}
