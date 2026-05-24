@@ -1,0 +1,579 @@
+/* =========================================================
+   CLEANING REPORT PAGE
+   Chỉ style phần Báo cáo vệ sinh.
+   ========================================================= */
+
+.cleaning-content {
+  width: 100%;
+}
+
+/* =========================================================
+   PAGE TITLE
+   ========================================================= */
+
+.page-section-title {
+  margin-bottom: 16px;
+}
+
+.page-section-title h2 {
+  margin: 0;
+  color: #001f5b;
+  font-size: 24px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+
+.page-section-title p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* =========================================================
+   STAT CARDS - BỎ CHỮ NHỎ, CĂN LẠI NỘI DUNG
+   ========================================================= */
+
+.cleaning-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.cleaning-stat-card {
+  min-height: 108px;
+  background: #ffffff;
+  border: 1px solid #dbe3ef;
+  border-radius: 16px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+.cleaning-stat-icon {
+  width: 54px;
+  height: 54px;
+  flex: 0 0 54px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.cleaning-stat-card.blue .cleaning-stat-icon {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.cleaning-stat-card.green .cleaning-stat-icon {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.cleaning-stat-card.orange .cleaning-stat-icon {
+  background: linear-gradient(135deg, #fb923c, #f97316);
+}
+
+.cleaning-stat-card.purple .cleaning-stat-icon {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.cleaning-stat-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  flex: 1;
+}
+
+.cleaning-stat-card p {
+  margin: 0 0 8px 0;
+  color: #001f5b;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.cleaning-stat-card h3 {
+  margin: 0;
+  color: #001f5b;
+  font-size: 33px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+/* Ẩn small nếu trong HTML cũ vẫn còn */
+.cleaning-stat-card small {
+  display: none !important;
+}
+
+/* =========================================================
+   FILTER
+   ========================================================= */
+
+.cleaning-filter-card {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #dbe3ef;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+
+  display: grid;
+  grid-template-columns: 1.8fr 1.2fr 0.85fr 0.85fr 0.95fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.cleaning-search-box {
+  position: relative;
+}
+
+.cleaning-search-box input,
+.cleaning-filter-group input,
+.cleaning-filter-group select {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 0 12px;
+  background: #ffffff;
+  color: #001f5b;
+  font-size: 14px;
+  outline: none;
+}
+
+.cleaning-search-box input {
+  padding-right: 38px;
+}
+
+.cleaning-search-box button {
+  position: absolute;
+  right: 6px;
+  top: 5px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cleaning-search-box input:focus,
+.cleaning-filter-group input:focus,
+.cleaning-filter-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.export-btn {
+  height: 42px;
+  border: none;
+  border-radius: 8px;
+  padding: 0 18px;
+  background: #0055d4;
+  color: #ffffff;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.export-btn:hover {
+  background: #003f9e;
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.cleaning-table-card {
+  width: 100%;
+  max-width: 100%;
+  background: #ffffff;
+  border: 1px solid #dbe3ef;
+  border-radius: 16px;
+  padding: 18px;
+  margin: 0;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+
+  display: flex;
+  flex-direction: column;
+
+  height: auto;
+  max-height: 570px;
+  overflow: hidden;
+}
+
+.cleaning-table-card h3 {
+  flex-shrink: 0;
+  margin: 0 0 12px;
+  color: #0055d4;
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+
+.cleaning-table-scroll {
+  width: 100%;
+  max-width: 100%;
+
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: auto;
+
+  border: 1px solid #dbe4f0;
+  border-radius: 10px;
+}
+
+.cleaning-table {
+  width: 100%;
+  min-width: 1100px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.cleaning-table thead th {
+  background: #f1f5f9;
+  color: #001f5b;
+  padding: 13px 12px;
+  font-size: 13px;
+  font-weight: 900;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.cleaning-table tbody td {
+  padding: 13px 12px;
+  color: #001f5b;
+  font-size: 13px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #ffffff;
+  vertical-align: middle;
+}
+
+.cleaning-empty {
+  text-align: center !important;
+  vertical-align: middle !important;
+  color: #64748b !important;
+  padding: 30px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  background: #ffffff !important;
+}
+
+/* Ghi đè trường hợp td có colspan bị ăn style cột đầu */
+.cleaning-table tbody td[colspan],
+.cleaning-table tbody td.cleaning-empty {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+/* Cho dòng empty có chiều cao dễ nhìn hơn */
+.cleaning-table tbody tr:has(td.cleaning-empty) {
+  height: 82px;
+}
+
+.cleaning-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cleaning-table tbody tr:hover td {
+  background: #f8fafc;
+}
+
+.cleaning-table-footer {
+  flex-shrink: 0;
+  margin-top: 10px;
+}
+
+/* Thanh cuộn giống Theo dõi ra/vào */
+
+.cleaning-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.cleaning-table-scroll::-webkit-scrollbar-thumb {
+  background: #b8c7dc;
+  border-radius: 10px;
+}
+
+.cleaning-table-scroll::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.cleaning-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 96px;
+  height: 26px;
+  border-radius: 8px;
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.status-done {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.status-pending {
+  background: #ffedd5;
+  color: #ea580c;
+  border: 1px solid #fed7aa;
+}
+
+.status-error {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+/* =========================================================
+   IMAGE BUTTON
+   ========================================================= */
+
+.image-view-btn {
+  border: none;
+  background: transparent;
+  color: #0055d4;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.image-view-btn:hover {
+  text-decoration: underline;
+}
+
+.muted-text {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+/* =========================================================
+   FOOTER TABLE
+   ========================================================= */
+
+.cleaning-table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.cleaning-table-footer p {
+  margin: 0;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.image-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(15, 23, 42, 0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.image-modal.show {
+  display: flex;
+}
+
+.image-modal-content {
+  width: min(1000px, 96vw);
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+}
+
+.image-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.image-modal-head h3 {
+  margin: 0;
+  color: #001f5b;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.image-modal-head button {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #001f5b;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.image-modal-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 20px;
+}
+
+.image-box {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 14px;
+  background: #f8fafc;
+}
+
+.image-box h4 {
+  margin: 0 0 10px;
+  color: #001f5b;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.image-box img {
+  width: 100%;
+  height: 360px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+
+.image-box a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #0055d4;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.image-box a:hover {
+  text-decoration: underline;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1200px) {
+  .cleaning-filter-card {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .export-btn {
+    width: 100%;
+  }
+
+  .cleaning-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .cleaning-filter-card {
+    grid-template-columns: 1fr;
+  }
+
+  .cleaning-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .image-modal-body {
+    grid-template-columns: 1fr;
+  }
+
+  .image-box img {
+    height: 260px;
+  }
+
+  .cleaning-table-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Bảng báo cáo vệ sinh có thanh cuộn riêng */
+.cleaning-table-card {
+  max-height: 570px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cleaning-table-scroll {
+  max-height: 520px;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid #dbe4f0;
+  border-radius: 10px;
+}
+/* Giữ tiêu đề bảng cố định khi cuộn */
+
+.cleaning-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  background: #eef3f9;
+  color: #001f5b;
+  padding: 13px 12px;
+  font-size: 13px;
+  font-weight: 900;
+  text-align: left;
+  border-bottom: 1px solid #dbe4f0;
+  white-space: nowrap;
+  box-shadow: 0 1px 0 #dbe4f0;
+}
+
+
+/* Tránh bảng làm giãn toàn bộ trang */
+.cleaning-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* Thanh cuộn nhìn gọn hơn */
+.cleaning-table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.cleaning-table-scroll::-webkit-scrollbar-thumb {
+  background: #b8c7dc;
+  border-radius: 10px;
+}
+
+.cleaning-table-scroll::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}

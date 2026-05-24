@@ -1,0 +1,572 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+}
+
+body {
+    color: #102b6b;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.login-page {
+    min-height: 100vh;
+    width: 100%;
+    background:
+        linear-gradient(
+            rgba(4, 17, 42, 0.66),
+            rgba(4, 17, 42, 0.66)
+        ),
+        url("/static/images/background.jpg.avif") center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(16px, 3vw, 34px);
+}
+
+/* =========================
+   MAIN BOX
+========================= */
+
+.login-wrapper {
+    width: min(1080px, 84vw);
+    min-height: min(560px, 72vh);
+    display: grid;
+    grid-template-columns: 1.02fr 0.98fr;
+    background: rgba(255, 255, 255, 0.985);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 26px 70px rgba(0, 0, 0, 0.34);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+}
+
+/* =========================
+   LEFT SIDE
+========================= */
+
+.login-left {
+    position: relative;
+    background: #ffffff;
+    border-right: 1px solid #dce3ee;
+    overflow: hidden;
+    padding: 56px 36px 0;
+    min-height: 560px;
+}
+
+/* 
+   left-content chiếm toàn bộ vùng trái
+   chừa phần dưới cho ảnh net
+*/
+.left-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 175px; /* vùng dành riêng cho net-vlu */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* LOGO */
+
+.logo-vlu {
+    width: clamp(205px, 14vw, 255px);
+    height: auto;
+    object-fit: contain;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+/* 
+   CỤM CHỮ:
+   flex: 1 => chiếm khoảng trống còn lại dưới logo
+   justify-content: center => tự căn giữa trong khoảng trống
+*/
+.left-text-group {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+}
+
+/* TITLE */
+
+.login-left h1 {
+    margin: 0;
+    color: #102b6b;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-size: clamp(28px, 2.2vw, 34px);
+    line-height: 1.28;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* DIVIDER */
+
+.divider {
+    width: 270px;
+    max-width: 68%;
+    margin: 22px auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider span {
+    height: 1px;
+    flex: 1;
+    background: #b8caea;
+}
+
+.divider i {
+    width: 13px;
+    height: 7px;
+    margin: 0 14px;
+    border: 2px solid #4f7bd1;
+    border-radius: 2px;
+    transform: skewX(-12deg);
+    display: block;
+    flex-shrink: 0;
+}
+
+/* SUBTEXT */
+
+.login-left p {
+    margin: 0;
+    color: #102b6b;
+    font-size: clamp(14px, 1vw, 15px);
+    line-height: 1.65;
+    font-weight: 500;
+}
+
+/* HÌNH NET */
+
+.net-vlu {
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    transform: translateX(-50%);
+    width: 112%;
+    height: clamp(150px, 21vh, 205px);
+    object-fit: cover;
+    object-position: center top;
+    opacity: 0.48;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.login-right {
+    background: #f8fafc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 34px 42px;
+}
+
+/* LOGIN CARD */
+
+.login-card {
+    width: min(440px, 96%);
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 42px 42px 38px;
+    box-shadow: 0 20px 48px rgba(15, 35, 80, 0.15);
+    border: 1px solid #eef2f7;
+}
+
+.login-card h2 {
+    margin: 0 0 12px;
+    text-align: center;
+    color: #102b6b;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-size: clamp(32px, 2.3vw, 38px);
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.login-desc {
+    margin: 0 0 32px;
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #102b6b;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.input-box {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    background: #ffffff;
+    padding: 0 14px;
+    transition: all 0.2s ease;
+}
+
+.input-box:focus-within {
+    border-color: #305ba9;
+    box-shadow: 0 0 0 4px rgba(48, 91, 169, 0.13);
+}
+
+.input-icon {
+    width: 28px;
+    margin-right: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.input-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #17224d;
+    background: transparent;
+    font-size: 14px;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+}
+
+.input-box input::placeholder {
+    color: #8b97a8;
+}
+
+/* ERROR */
+
+.error-message {
+    margin-bottom: 15px;
+    padding: 10px 12px;
+    color: #e01935;
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 13px;
+}
+
+/* BUTTON */
+
+button {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #305ba9, #20458f);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(48, 91, 169, 0.26);
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(48, 91, 169, 0.34);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.login-note {
+    margin: 24px 0 0;
+    color: #ff1f2f;
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* =========================
+   LAPTOP / THU NHỎ NGANG
+========================= */
+
+@media (max-width: 1100px) and (min-width: 761px) {
+    .login-wrapper {
+        width: min(920px, 94vw);
+        min-height: 520px;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .login-left {
+        min-height: 520px;
+        padding: 52px 28px 0;
+    }
+
+    .left-content {
+        padding-bottom: 155px;
+    }
+
+    .logo-vlu {
+        width: 205px;
+    }
+
+    .login-left h1 {
+        font-size: 27px;
+    }
+
+    .divider {
+        width: 250px;
+        max-width: 62%;
+        margin: 20px auto 18px;
+    }
+
+    .login-left p {
+        font-size: 13px;
+    }
+
+    .net-vlu {
+        height: 145px;
+        bottom: -6px;
+    }
+
+    .login-right {
+        padding: 30px 26px;
+    }
+
+    .login-card {
+        width: min(400px, 96%);
+        padding: 38px 34px 34px;
+    }
+
+    .login-card h2 {
+        font-size: 32px;
+    }
+
+    .login-desc {
+        font-size: 13px;
+        margin-bottom: 28px;
+    }
+
+    .input-box,
+    button {
+        height: 48px;
+    }
+}
+
+/* =========================
+   LOW HEIGHT
+========================= */
+
+@media (max-height: 760px) and (min-width: 761px) {
+    .login-wrapper {
+        min-height: 480px;
+    }
+
+    .login-left {
+        min-height: 480px;
+        padding-top: 44px;
+    }
+
+    .left-content {
+        padding-bottom: 140px;
+    }
+
+    .logo-vlu {
+        width: 190px;
+    }
+
+    .login-left h1 {
+        font-size: 26px;
+    }
+
+    .divider {
+        margin: 18px auto 16px;
+    }
+
+    .net-vlu {
+        height: 130px;
+    }
+
+    .login-card {
+        width: min(400px, 96%);
+        padding: 34px 32px;
+    }
+
+    .login-card h2 {
+        font-size: 30px;
+    }
+
+    .login-desc {
+        margin-bottom: 24px;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .login-note {
+        margin-top: 18px;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 760px) {
+    .login-page {
+        align-items: flex-start;
+        padding: 14px;
+    }
+
+    .login-wrapper {
+        width: 100%;
+        min-height: auto;
+        grid-template-columns: 1fr;
+        border-radius: 20px;
+    }
+
+    .login-left {
+        min-height: 390px;
+        border-right: none;
+        border-bottom: 1px solid #dce3ee;
+        padding: 42px 22px 130px;
+    }
+
+    .left-content {
+        height: auto;
+        padding-bottom: 0;
+    }
+
+    .logo-vlu {
+        width: 190px;
+        margin-bottom: 24px;
+    }
+
+    .left-text-group {
+        flex: unset;
+        padding-top: 0;
+    }
+
+    .login-left h1 {
+        font-size: 25px;
+    }
+
+    .divider {
+        width: 240px;
+        max-width: 68%;
+        margin: 18px auto 16px;
+    }
+
+    .net-vlu {
+        width: 120%;
+        height: 135px;
+        bottom: -5px;
+    }
+
+    .login-right {
+        padding: 26px 18px;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 410px;
+        padding: 32px 26px;
+    }
+}
+
+/* =========================
+   SMALL PHONE
+========================= */
+
+@media (max-width: 480px) {
+    .login-page {
+        padding: 10px;
+    }
+
+    .login-wrapper {
+        border-radius: 18px;
+    }
+
+    .login-left {
+        min-height: 360px;
+        padding: 34px 18px 115px;
+    }
+
+    .logo-vlu {
+        width: 170px;
+        margin-bottom: 20px;
+    }
+
+    .login-left h1 {
+        font-size: 22px;
+    }
+
+    .login-left p {
+        font-size: 13px;
+    }
+
+    .login-right {
+        padding: 20px 14px;
+    }
+
+    .login-card {
+        padding: 28px 22px;
+        border-radius: 17px;
+    }
+
+    .login-card h2 {
+        font-size: 27px;
+    }
+
+    .login-desc {
+        font-size: 12px;
+    }
+
+    .input-box {
+        height: 44px;
+    }
+
+    button {
+        height: 46px;
+    }
+
+    .login-note {
+        font-size: 12px;
+    }
+
+    .login-note br,
+    .login-desc br {
+        display: none;
+    }
+}
