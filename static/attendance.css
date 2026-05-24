@@ -604,3 +604,133 @@ body {
     max-height: 430px;
   }
 }
+
+/* =========================================================
+   FIX CUỐI: ÉP GIAO DIỆN THEO DÕI RA/VÀO VỪA MÀN HÌNH 100%
+   Dán đoạn này ở CUỐI FILE attendance.css
+   ========================================================= */
+
+/* Giảm khoảng trống tổng thể */
+.attendance-content {
+  min-height: auto !important;
+  padding-bottom: 0 !important;
+}
+
+/* Giảm card thống kê để không chiếm quá nhiều chiều cao */
+.attendance-stat-grid {
+  gap: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.attendance-stat-card {
+  min-height: 72px !important;
+  padding: 10px 14px !important;
+  border-radius: 14px !important;
+  gap: 12px !important;
+}
+
+.attendance-icon {
+  width: 42px !important;
+  height: 42px !important;
+  flex: 0 0 42px !important;
+  font-size: 18px !important;
+}
+
+.attendance-stat-card p,
+.attendance-stat-title {
+  font-size: 13px !important;
+  margin-bottom: 4px !important;
+}
+
+.attendance-stat-card h3 {
+  font-size: 24px !important;
+}
+
+.attendance-stat-card h3 span {
+  font-size: 12px !important;
+}
+
+/* Giảm khối filter */
+.attendance-table-section {
+  gap: 10px !important;
+}
+
+.attendance-filter-card,
+.attendance-control-left {
+  padding: 10px 14px !important;
+  gap: 10px !important;
+  border-radius: 14px !important;
+}
+
+.attendance-filter-group {
+  gap: 4px !important;
+}
+
+.attendance-filter-group label {
+  font-size: 13px !important;
+}
+
+.attendance-filter-group input,
+.attendance-filter-group select {
+  height: 34px !important;
+  font-size: 13px !important;
+  border-radius: 8px !important;
+}
+
+/* Giảm khối danh sách */
+.attendance-list-card {
+  padding: 12px !important;
+  border-radius: 14px !important;
+  max-height: calc(100vh - 360px) !important;
+  overflow: hidden !important;
+}
+
+.attendance-list-head {
+  margin-bottom: 8px !important;
+}
+
+.attendance-list-head h3 {
+  font-size: 16px !important;
+}
+
+/* Quan trọng nhất: bảng tự cuộn bên trong, không đẩy giao diện tràn xuống */
+.attendance-table-scroll {
+  min-height: 0 !important;
+  max-height: calc(100vh - 420px) !important;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+}
+
+/* Giảm chiều cao từng dòng trong bảng */
+.attendance-main-table thead th {
+  padding: 9px 10px !important;
+  font-size: 12px !important;
+}
+
+.attendance-main-table tbody td {
+  padding: 9px 10px !important;
+  font-size: 12px !important;
+}
+
+/* Giảm dropdown trạng thái */
+.status-select {
+  height: 30px !important;
+  min-width: 125px !important;
+  font-size: 12px !important;
+  padding: 0 8px !important;
+}
+
+/* Ép bảng không quá rộng */
+.attendance-main-table {
+  min-width: 820px !important;
+}
+
+/* Nếu footer đang chiếm chỗ dưới cùng thì tránh bị đẩy tràn */
+.layout-main,
+.main-content,
+.page-content,
+.dashboard-main,
+.content {
+  min-height: 0 !important;
+  overflow-x: hidden !important;
+}
