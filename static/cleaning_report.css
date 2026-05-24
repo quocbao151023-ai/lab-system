@@ -11,8 +11,29 @@
    PAGE TITLE
    ========================================================= */
 
-.page-section-title {
-  margin-bottom: 16px;
+.search-box {
+    position: relative;
+    width: 100%;
+}
+
+.search-box input {
+    width: 100%;
+    height: 44px;
+    padding: 0 48px 0 14px; /* chừa khoảng bên phải cho icon */
+    border: 1px solid #d6dde8;
+    border-radius: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.search-box .search-icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;   /* tăng kích thước icon */
+    color: #1e2a78;
+    pointer-events: none; /* tránh icon chặn click vào input */
 }
 
 .page-section-title h2 {
