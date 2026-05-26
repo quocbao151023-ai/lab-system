@@ -1,0 +1,739 @@
+/* =========================================================
+   CLEANING REPORT PAGE - CLEAN VERSION
+   Fit 100%, filter gọn, sheet tự fit nội dung,
+   chỉ tbody có scroll khi nhiều dòng
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   KHUNG CHUNG
+========================================================= */
+
+.cleaning-content {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.page-section-title {
+  flex-shrink: 0;
+  margin-bottom: 8px;
+}
+
+.page-section-title h2 {
+  margin: 0;
+  color: #001f5b;
+  font-size: 20px;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.page-section-title p {
+  margin: 2px 0 0;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
+.cleaning-stat-grid {
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.cleaning-stat-card {
+  height: 62px;
+  min-height: 62px;
+  background: #fff;
+  border: 1px solid #dbe3ef;
+  border-radius: 13px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+.cleaning-stat-icon {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.cleaning-stat-card.blue .cleaning-stat-icon {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.cleaning-stat-card.green .cleaning-stat-icon {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.cleaning-stat-card.orange .cleaning-stat-icon {
+  background: linear-gradient(135deg, #fb923c, #f97316);
+}
+
+.cleaning-stat-card.purple .cleaning-stat-icon {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.cleaning-stat-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.cleaning-stat-card p {
+  margin: 0 0 3px;
+  color: #001f5b;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.cleaning-stat-card h3 {
+  margin: 0;
+  color: #001f5b;
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.cleaning-stat-card small {
+  display: none !important;
+}
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+.cleaning-filter-card {
+  flex-shrink: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #dbe3ef;
+  border-radius: 13px;
+  padding: 9px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 0.9fr 0.9fr 1fr auto;
+  gap: 10px;
+  align-items: center;
+  overflow: visible;
+}
+
+.cleaning-filter-card > * {
+  min-width: 0;
+}
+
+.search-box,
+.cleaning-search-box {
+  position: relative;
+  width: 100%;
+}
+
+.search-box input,
+.cleaning-search-box input,
+.cleaning-filter-group input,
+.cleaning-filter-group select {
+  width: 100%;
+  height: 34px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #001f5b;
+  font-size: 12px;
+  outline: none;
+}
+
+.search-box input,
+.cleaning-search-box input {
+  padding: 0 38px 0 10px;
+}
+
+.cleaning-filter-group input,
+.cleaning-filter-group select {
+  padding: 0 10px;
+}
+
+.search-box .search-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  color: #1e2a78;
+  pointer-events: none;
+}
+
+.cleaning-search-box button {
+  position: absolute;
+  right: 5px;
+  top: 4px;
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.search-box input:focus,
+.cleaning-search-box input:focus,
+.cleaning-filter-group input:focus,
+.cleaning-filter-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.export-btn {
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  padding: 0 14px;
+  background: #0055d4;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.export-btn:hover {
+  background: #003f9e;
+}
+
+/* =========================================================
+   TABLE CARD - FIX HEIGHT + SCROLL
+========================================================= */
+
+.cleaning-table-card {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #dbe3ef;
+  border-radius: 13px;
+  padding: 10px;
+  margin: 0;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.cleaning-table-card h3 {
+  flex-shrink: 0;
+  margin: 0 0 7px;
+  color: #0055d4;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   TABLE WRAPPER
+   - Có scroll ngang khi thu nhỏ
+   - Không scroll dọc ở khung ngoài
+========================================================= */
+
+.cleaning-table-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid #dbe4f0;
+  border-radius: 10px;
+  background: #fff;
+}
+
+/* =========================================================
+   TABLE
+   Header đứng riêng, tbody cuộn dọc
+========================================================= */
+
+.cleaning-table {
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tách header và body */
+.cleaning-table thead,
+.cleaning-table tbody {
+  display: block;
+  width: 100%;
+}
+
+.cleaning-table thead {
+  flex: 0 0 auto;
+}
+
+.cleaning-table tbody {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+/* Header và body dùng chung grid để thẳng cột */
+.cleaning-table thead tr,
+.cleaning-table tbody tr {
+  display: grid;
+  grid-template-columns: 15% 8% 7% 12% 16% 17% 12% 13%;
+  width: 100%;
+}
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.cleaning-table thead th {
+  background: #eef3f9;
+  color: #001f5b;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 900;
+  text-align: left;
+  border-bottom: 1px solid #dbe4f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.cleaning-table tbody td {
+  min-height: 56px;
+  padding: 12px 12px;
+  color: #001f5b;
+  font-size: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  display: flex;
+  align-items: center;
+}
+
+.cleaning-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cleaning-table tbody tr:hover td {
+  background: #f8fafc;
+}
+
+/* Cột ID đăng ký đậm hơn */
+.cleaning-table tbody td:first-child {
+  font-weight: 900;
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.cleaning-table-scroll::-webkit-scrollbar,
+.cleaning-table tbody::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.cleaning-table-scroll::-webkit-scrollbar-thumb,
+.cleaning-table tbody::-webkit-scrollbar-thumb {
+  background: #b8c7dc;
+  border-radius: 10px;
+}
+
+.cleaning-table-scroll::-webkit-scrollbar-track,
+.cleaning-table tbody::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+/* =========================================================
+   EMPTY DATA
+   Không có data thì khung thấp gọn
+========================================================= */
+
+.cleaning-table-card:has(.cleaning-empty) {
+  flex: 0 0 auto;
+  min-height: auto;
+}
+
+.cleaning-table-scroll:has(.cleaning-empty) {
+  flex: 0 0 auto;
+  height: auto;
+  min-height: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.cleaning-table:has(.cleaning-empty) {
+  height: auto;
+  min-height: auto;
+}
+
+.cleaning-table tbody:has(.cleaning-empty) {
+  flex: 0 0 auto;
+  height: 90px;
+  min-height: 90px;
+  max-height: 90px;
+  overflow: hidden;
+}
+
+.cleaning-table tbody tr:has(.cleaning-empty) {
+  display: grid;
+  grid-template-columns: 1fr !important;
+  width: 100% !important;
+  height: 90px;
+}
+
+.cleaning-table tbody td.cleaning-empty,
+.cleaning-empty {
+  grid-column: 1 / -1;
+  height: 90px;
+  min-height: 90px;
+  width: 100%;
+  padding: 0 !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center !important;
+  color: #64748b !important;
+  font-family: Arial, "Segoe UI", sans-serif;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  background: #fff !important;
+}
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.cleaning-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 86px;
+  height: 24px;
+  border-radius: 7px;
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: 900;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.status-done {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.status-pending {
+  background: #ffedd5;
+  color: #ea580c;
+  border: 1px solid #fed7aa;
+}
+
+.status-error {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+/* =========================================================
+   IMAGE BUTTON / MUTED TEXT
+========================================================= */
+
+.image-view-btn {
+  border: none;
+  background: transparent;
+  color: #0055d4;
+  font-family: Arial, "Segoe UI", sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 3px 0;
+  white-space: nowrap;
+}
+
+.image-view-btn:hover {
+  text-decoration: underline;
+}
+
+.muted-text {
+  color: #94a3b8;
+  font-family: Arial, "Segoe UI", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   TABLE FOOTER
+========================================================= */
+
+.cleaning-table-footer {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 7px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.cleaning-table-footer p {
+  margin: 0;
+}
+
+/* =========================================================
+   IMAGE MODAL
+========================================================= */
+
+.image-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(15, 23, 42, 0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.image-modal.show {
+  display: flex;
+}
+
+.image-modal-content {
+  width: min(900px, 94vw);
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+}
+
+.image-modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.image-modal-head h3 {
+  margin: 0;
+  color: #001f5b;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.image-modal-head button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #001f5b;
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.image-modal-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding: 16px;
+}
+
+.image-box {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px;
+  background: #f8fafc;
+}
+
+.image-box h4 {
+  margin: 0 0 8px;
+  color: #001f5b;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.image-box img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+}
+
+.image-box a {
+  display: inline-block;
+  margin-top: 8px;
+  color: #0055d4;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.image-box a:hover {
+  text-decoration: underline;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+/* Dưới 1200px: sheet có scroll ngang */
+@media (max-width: 1200px) {
+  .cleaning-filter-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .export-btn {
+    width: 100%;
+  }
+
+  .cleaning-table-scroll {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+  }
+
+  .cleaning-table {
+    width: 1220px !important;
+    min-width: 1220px !important;
+    max-width: 1220px !important;
+  }
+
+  .cleaning-table thead tr,
+  .cleaning-table tbody tr {
+    grid-template-columns: 190px 110px 90px 140px 180px 190px 150px 170px !important;
+    width: 1220px !important;
+  }
+}
+
+/* Dưới 760px: filter vẫn 2 cột, bảng kéo ngang */
+@media (max-width: 760px) {
+  .cleaning-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cleaning-filter-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cleaning-table {
+    width: 1220px !important;
+    min-width: 1220px !important;
+    max-width: 1220px !important;
+  }
+
+  .cleaning-table thead tr,
+  .cleaning-table tbody tr {
+    grid-template-columns: 190px 110px 90px 140px 180px 190px 150px 170px !important;
+    width: 1220px !important;
+  }
+
+  .image-modal-body {
+    grid-template-columns: 1fr;
+  }
+
+  .image-box img {
+    height: 240px;
+  }
+
+  .cleaning-table-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Dưới 520px: filter 1 cột */
+@media (max-width: 520px) {
+  .cleaning-stat-grid,
+  .cleaning-filter-card {
+    grid-template-columns: 1fr;
+  }
+
+  .export-btn {
+    width: 100%;
+  }
+
+  .cleaning-table {
+    width: 1220px !important;
+    min-width: 1220px !important;
+    max-width: 1220px !important;
+  }
+
+  .cleaning-table thead tr,
+  .cleaning-table tbody tr {
+    grid-template-columns: 190px 110px 90px 140px 180px 190px 150px 170px !important;
+    width: 1220px !important;
+  }
+}
+
+/* Màn hình lớn: bảng tự fit lại theo khung */
+@media (min-width: 1201px) {
+  .cleaning-table {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .cleaning-table thead tr,
+  .cleaning-table tbody tr {
+    grid-template-columns: 15% 8% 7% 12% 16% 17% 12% 13% !important;
+    width: 100% !important;
+  }
+}
