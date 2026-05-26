@@ -721,6 +721,11 @@ def attendance_bookings():
         rows = get_lab_booking_rows()
         attendance_rows = get_attendance_rows()
 
+        filter_date = clean_value(request.args.get("date", ""))
+        filter_lab = clean_value(request.args.get("lab", ""))
+        filter_shift = clean_value(request.args.get("shift", ""))
+        filter_status = clean_value(request.args.get("status", ""))
+
         latest_status = {}
 
         for att in attendance_rows:
@@ -850,9 +855,35 @@ def attendance_bookings():
                         "attendance_status": latest_status.get(member_key, "Chưa điểm danh")
                     })
 
+                filtered_data = []
+
+        for item in data:
+            item_date = clean_value(item.get("date", ""))
+            item_lab = clean_value(item.get("lab", ""))
+            item_shift = clean_value(item.get("shift", ""))
+            item_status = clean_value(item.get("attendance_status", ""))
+
+            if filter_date:
+                item_date_formatted = format_date_for_calendar(item_date)
+                if item_date_formatted != filter_date:
+                    continue
+
+            if filter_lab and filter_lab not in ["Tất cả Lab", "all"]:
+                if item_lab != filter_lab:
+                    continue
+
+            if filter_shift and filter_shift not in ["Tất cả ca", "all"]:
+                if item_shift != filter_shift:
+                    continue
+
+            if filter_status and filter_status not in ["Tất cả trạng thái", "all"]:
+                if item_status != filter_status:
+                    continue
+
+            filtered_data.append(item)
         return jsonify({
             "success": True,
-            "data": data
+            "data": filtered_data
         })
 
     except Exception as e:
