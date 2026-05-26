@@ -551,7 +551,6 @@ function setHtml(id, value) {
 /* =========================
    SAVE ATTENDANCE
 ========================= */
-
 async function updateAttendanceStatus(rowId, status) {
   const item = attendanceData.find(record => record.row_id === rowId);
 
@@ -564,8 +563,7 @@ async function updateAttendanceStatus(rowId, status) {
 
   item.attendance_status = status;
 
-  renderAttendanceTable();
-  renderAttendanceSummary();
+  applyAttendanceFilter();
 
   try {
     const res = await fetch("/api/save-attendance-status", {
@@ -591,8 +589,7 @@ async function updateAttendanceStatus(rowId, status) {
 
     if (!json.success) {
       item.attendance_status = oldStatus;
-      renderAttendanceTable();
-      renderAttendanceSummary();
+      applyAttendanceFilter();
 
       alert(json.error || "Không thể lưu trạng thái điểm danh.");
     }
@@ -601,13 +598,11 @@ async function updateAttendanceStatus(rowId, status) {
     console.error("SAVE ATTENDANCE ERROR:", error);
 
     item.attendance_status = oldStatus;
-    renderAttendanceTable();
-    renderAttendanceSummary();
+    applyAttendanceFilter();
 
     alert("Lỗi lưu trạng thái điểm danh. Vui lòng kiểm tra API /api/save-attendance-status.");
   }
 }
-
 /* =========================
    STATUS CLASS
 ========================= */
