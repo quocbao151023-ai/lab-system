@@ -931,10 +931,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const dateInput = document.getElementById("filterDate");
   const labInput = document.getElementById("filterLab");
   const shiftInput = document.getElementById("filterShift");
+  const statusInput = document.getElementById("filterStatus");
 
   if (dateInput) dateInput.addEventListener("change", applyAttendanceFilter);
   if (labInput) labInput.addEventListener("change", applyAttendanceFilter);
   if (shiftInput) shiftInput.addEventListener("change", applyAttendanceFilter);
+  if (statusInput) statusInput.addEventListener("change", applyAttendanceFilter);
 
   loadAttendanceBookings();
   loadSystemNotifications();
